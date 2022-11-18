@@ -9,6 +9,7 @@ export type { default as ITaxonomy } from './ITaxonomy';
 export type { default as IMedia } from './IMedia';
 export type { default as IUser } from './IUser';
 export type { default as IPostType } from './IPostType';
-export type { default as IStatus } from './IStatus';
+export type { default as IPostStatus } from './IStatus';
 export type { default as ISiteSettings } from './ISiteSettings';
 export type { default as ISearch } from './ISearch';
+export type { default as ILoginUser } from './ILogin';

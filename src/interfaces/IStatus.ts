@@ -1,6 +1,6 @@
 import IBase from './IBase';
 
-export default interface IStatus extends IBase {
+export default interface IPostStatus extends IBase {
   title?: string;
   description?: string;
   url?: string | object;
