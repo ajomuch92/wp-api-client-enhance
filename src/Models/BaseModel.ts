@@ -15,3 +15,15 @@ export default abstract class BaseModel {
 
   abstract fetch(): RequestListModel<IBase>;
 }
+
+export abstract class BaseModelSimplified {
+  protected baseUrl: string;
+  protected suffix: string;
+
+  constructor(baseUrl: string, suffix: string) {
+    this.baseUrl = baseUrl;
+    this.suffix = suffix;
+  }
+
+  abstract fetch(): RequestListModel<IBase>;
+}
