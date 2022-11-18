@@ -8,7 +8,7 @@ export default class Parameter {
   public after?: String | Date;
   public author?: Number | String;
   public authorExclude?: Number[] | String[];
-  public authorEmail?: string[];
+  public authorEmail?: string;
   public before?: String | Date;
   public exclude?: Number[] | String[];
   public include?: Number[] | String[];
@@ -26,6 +26,7 @@ export default class Parameter {
   public post?: Number | String;
   public parent?: Number | String;
   public type?: string;
+  public subtype?: string;
   public password?: boolean;
   public fields?: String | string[] | number | number[];
 
