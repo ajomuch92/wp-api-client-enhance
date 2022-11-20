@@ -22,11 +22,15 @@ export default class User extends BaseModel {
   }
 
   public async login(user: ILoginUser, urlLogin: string) : Promise<ILoggedUser> {
+    console.log(`${this.baseUrl}/${urlLogin}`);
     const response = await fetch(
       `${this.baseUrl}/${urlLogin}`,
       {
         method: 'POST',
-        body: JSON.stringify(user)
+        body: JSON.stringify(user),
+        headers: {
+          'Content-Type': 'application/json'
+        }
       }
     );
     const data = await response.json();
