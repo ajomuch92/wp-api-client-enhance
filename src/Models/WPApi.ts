@@ -1,6 +1,7 @@
 import Category from './Category';
 import Comment from './Comment';
 import Media from './Media';
+import Page from './Page';
 import Post from './Post';
 import PostType from './PostType';
 import Search from './Search';
@@ -13,6 +14,7 @@ export default class WPApi {
   protected baseUrl: string;
   protected suffix: string;
   public posts: Post;
+  public pages: Page;
   public categories: Category;
   public comments: Comment;
   public media: Media;
@@ -27,6 +29,7 @@ export default class WPApi {
     this.baseUrl = baseUrl;
     this.suffix = suffix;
     this.posts = new Post(baseUrl, suffix);
+    this.pages = new Page(baseUrl, suffix);
     this.categories = new Category(baseUrl, suffix);
     this.comments = new Comment(baseUrl, suffix);
     this.media = new Media(baseUrl, suffix);
