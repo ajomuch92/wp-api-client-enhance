@@ -1,7 +1,5 @@
 # wp api client enhance
-## An alternative for wp api made with TS
-
-This is not a fork from [WP api](https://github.com/wp-api/node-wpapi) for Node. This is a new implemetation using Typescript, but inspired on it.
+An alternative for wp api made with TS. This is not a fork from [WP api](https://github.com/wp-api/node-wpapi) for Node. This is a new implemetation using Typescript, but inspired on it. Project currently on develop, please don't use in production.
 
 ## Features
 - All the project is build with Typescript
