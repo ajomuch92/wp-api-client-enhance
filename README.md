@@ -55,7 +55,9 @@ const loggedUsers = await wpApi.users.login({ username, password}, urlToMakeAuth
 - taxonomies*
 - users
 
-*\**: Only fetch method is available for these collections
+*Note\**: Only fetch method is available for these collections
+
+Find a full example [here](https://github.com/ajomuch92/wp-api-client-enhance/blob/main/src/example.ts)
 
 ## To Do
 - Upload documents

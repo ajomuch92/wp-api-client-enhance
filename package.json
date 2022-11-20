@@ -8,7 +8,6 @@
     "build": "rimraf ./build && tsc",
     "run-test": "npx ts-node src/index.ts"
   },
-  "keywords": [],
   "author": "Aarón Josué Montes",
   "repository": {
     "url": "https://github.com/ajomuch92/wp-api-client-enhance"
@@ -24,5 +23,14 @@
   "dependencies": {
     "node-fetch": "^2.6.7",
     "query-string": "^7.1.1"
-  }
+  },
+  "keywords": [
+    "wordpress",
+    "node",
+    "typescript",
+    "ts",
+    "wp-api",
+    "wp api client",
+    "wp-api-client-enhance"
+  ]
 }
