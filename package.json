@@ -1,8 +1,8 @@
 {
   "name": "wp-api-client-enhance",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
-  "main": "index.ts",
+  "main": "build/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rimraf ./build && tsc",
@@ -10,6 +10,9 @@
   },
   "keywords": [],
   "author": "Aarón Josué Montes",
+  "repository": {
+    "url": "https://github.com/ajomuch92/wp-api-client-enhance"
+  },
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^18.11.9",
