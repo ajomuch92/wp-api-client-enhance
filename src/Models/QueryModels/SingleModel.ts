@@ -10,7 +10,9 @@ export default class SingleModel<T extends IBase> {
   protected id: string | String | number | Number;
   protected entity?: T;
   protected newEntity?: T;
-  protected headers?: HeadersInit;
+  protected headers?: HeadersInit = {
+    'Content-Type': 'application/json'
+  };
 
   constructor(baseUrl: string | String, suffix: string | String, id: string | String | number | Number) {
     this.baseUrl = baseUrl;

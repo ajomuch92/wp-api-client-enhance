@@ -7,7 +7,9 @@ export default class RequestListModel<T extends IBase> {
   protected globalParameter: Parameter;
   protected baseUrl: String;
   protected suffix: string | String;
-  protected headers?: HeadersInit;
+  protected headers?: HeadersInit = {
+    'Content-Type': 'application/json'
+  };
 
   constructor(baseUrl: String, suffix: string | String) {
     this.baseUrl = baseUrl;
