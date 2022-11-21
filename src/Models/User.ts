@@ -22,7 +22,6 @@ export default class User extends BaseModel {
   }
 
   public async login(user: ILoginUser, urlLogin: string) : Promise<ILoggedUser> {
-    console.log(`${this.baseUrl}/${urlLogin}`);
     const response = await fetch(
       `${this.baseUrl}/${urlLogin}`,
       {
