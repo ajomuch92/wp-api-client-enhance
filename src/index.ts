@@ -1,5 +1,39 @@
 import WPApi from './Models/WPApi';
-import * as models from './interfaces';
+import { 
+  IBase,
+  IRendered,
+  IPost,
+  IPage,
+  ICategory,
+  ITags,
+  IComment,
+  ITaxonomy,
+  IMedia,
+  IUser,
+  IPostType,
+  IPostStatus,
+  ISiteSettings,
+  ISearch,
+  ILoginUser,
+  ILoggedUser,
+} from './interfaces';
 
 export default WPApi;
-export { models };
+export { 
+  IBase,
+  IRendered,
+  IPost,
+  IPage,
+  ICategory,
+  ITags,
+  IComment,
+  ITaxonomy,
+  IMedia,
+  IUser,
+  IPostType,
+  IPostStatus,
+  ISiteSettings,
+  ISearch,
+  ILoginUser,
+  ILoggedUser,
+};
