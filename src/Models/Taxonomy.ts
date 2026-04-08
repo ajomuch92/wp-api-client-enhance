@@ -1,11 +1,17 @@
+import { BaseModelReadOnly } from './BaseModel';
 import { ITaxonomy } from '../interfaces';
-import { BaseModelSimplified } from './BaseModel';
 import RequestListModel from './QueryModels/RequestListModel';
+import SingleModel from './QueryModels/SingleModel';
 
-export default class Taxonomy extends BaseModelSimplified {
+export default class Taxonomy extends BaseModelReadOnly {
 
-  constructor(baseUrl: string | String, suffix: string | String) {
-    super(baseUrl.toString(), suffix.concat('/taxonomies'));
+  constructor(baseUrl: string, suffix: string) {
+    super(baseUrl, suffix.concat('/taxonomies'));
+  }
+
+  public find(id: string | number): SingleModel<ITaxonomy> {
+    const singleModel: SingleModel<ITaxonomy> = new SingleModel<ITaxonomy>(this.baseUrl, this.suffix, id);
+    return singleModel;
   }
 
   public fetch(): RequestListModel<ITaxonomy> {
