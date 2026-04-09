@@ -1,22 +1,22 @@
 import IBase from './IBase';
 import IRendered from './IRendered';
 
-export default interface IComments extends IBase {
+export default interface IComment extends IBase {
   id?: number;
-  author?: string;
+  author?: number;
   author_email?: string;
   author_ip?: string;
   author_name?: string;
   author_url?: string;
   author_user_agent?: string;
   content?: string | IRendered;
-  date?: string |Date;
+  date?: string | Date;
   date_gmt?: string | Date;
-  link?: string | object;
-  count?: number;
-  description?: string;
+  link?: string;
   parent?: number;
-  type?: number;
-  author_avatar_urls?: string;
+  post?: number;
+  status?: string;
+  type?: string;
+  author_avatar_urls?: object;
   meta?: object | object[];
 }
