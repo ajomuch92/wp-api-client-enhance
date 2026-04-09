@@ -1,4 +1,4 @@
-import { stringify } from 'query-string';
+import stringify from 'query-string';
 
 export default class Parameter {
   public context: String = 'view';
@@ -34,7 +34,7 @@ export default class Parameter {
 
 
   public toQueryString() : String {
-    let queryString = stringify(this);
+    let queryString = stringify.stringify(this);
     this.validateNumericFields();
     for(let i = 0 ; i < this.specialFieldsToReplace.length; i += 1) {
       const field: string = this.specialFieldsToReplace[i];
@@ -50,7 +50,7 @@ export default class Parameter {
 
   public toQueryStringFields(): string | undefined {
     if (this.fields) {
-      return stringify({'_fields': this.fields});
+      return stringify.stringify({'_fields': this.fields});
     }
     return undefined;
   }
