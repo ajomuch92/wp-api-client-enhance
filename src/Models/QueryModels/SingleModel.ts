@@ -1,26 +1,26 @@
+import WPError, { ApiError } from '../Errors';
 import fetch, { HeadersInit } from 'node-fetch';
+
 import { ApiActions } from '../../enum';
 import { IBase } from '../../interfaces';
-import WPError, { ApiError } from '../Errors';
 
 export default class SingleModel<T extends IBase> {
-  protected baseUrl: string | String;
-  protected suffix: string | String;
+  protected baseUrl: string;
+  protected suffix: string;
   protected action?: ApiActions;
-  protected id: string | String | number | Number;
+  protected id: string | number;
   protected entity?: T;
   protected newEntity?: T;
-  protected headers?: HeadersInit = {
+  protected headers: HeadersInit = {
     'Content-Type': 'application/json'
   };
 
-  constructor(baseUrl: string | String, suffix: string | String, id: string | String | number | Number) {
+  constructor(baseUrl: string, suffix: string, id: string | number) {
     this.baseUrl = baseUrl;
     this.suffix = suffix;
     this.id = id;
     this.action = ApiActions.Find;
   }
-
 
   public update(newEntity: T): SingleModel<T> {
     this.newEntity = newEntity;
@@ -34,24 +34,30 @@ export default class SingleModel<T extends IBase> {
   }
   
   public setHeaders(headers: HeadersInit): SingleModel<T> {
-    this.headers = headers;
+    this.headers = { ...this.headers, ...headers };
     return this;
   }
 
-  public async request(): Promise<void | T> {
+  public addHeader(key: string, value: string): SingleModel<T> {
+    this.headers = { ...this.headers, [key]: value };
+    return this;
+  }
+
+  public async request(): Promise<T | void> {
     if (!this.id) {
-      throw new Error('No ID field provide');
+      throw new Error('No ID field provided');
     }
     const fullUrl = `${this.baseUrl}${this.suffix}/${this.id}`;
-    const response = await fetch(fullUrl, {
-      method: 'GET',
-      headers: this.headers,
-    });
-    const data: any = await response.json();
-    if (data.code) {
-      throw new WPError(data as ApiError);
-    }
+    
     if (this.action === ApiActions.Find) {
+      const response = await fetch(fullUrl, {
+        method: 'GET',
+        headers: this.headers,
+      });
+      const data: any = await response.json();
+      if (data.code) {
+        throw new WPError(data as ApiError);
+      }
       return data as T;
     } else if (this.action === ApiActions.Update) {
       const responseUpdate = await fetch(fullUrl, {

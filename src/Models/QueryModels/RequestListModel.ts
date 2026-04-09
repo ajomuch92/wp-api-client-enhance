@@ -1,68 +1,69 @@
-import fetch, { HeadersInit } from 'node-fetch';
-import { IBase } from '../../interfaces';
 import WPError, { ApiError } from '../Errors';
+import fetch, { HeadersInit } from 'node-fetch';
+
+import { IBase } from '../../interfaces';
 import Parameter from '../Parameter';
 
 export default class RequestListModel<T extends IBase> {
   protected globalParameter: Parameter;
-  protected baseUrl: String;
-  protected suffix: string | String;
-  protected headers?: HeadersInit = {
+  protected baseUrl: string;
+  protected suffix: string;
+  protected headers: HeadersInit = {
     'Content-Type': 'application/json'
   };
 
-  constructor(baseUrl: String, suffix: string | String) {
+  constructor(baseUrl: string, suffix: string) {
     this.baseUrl = baseUrl;
     this.suffix = suffix;
     this.globalParameter = new Parameter();
   }
 
-  public setPage(page: String | Number): RequestListModel<T> {
+  public setPage(page: string | number): RequestListModel<T> {
     this.globalParameter.page = page;
     return this;
   }
   
-  public setPerPage(perPage: String | Number): RequestListModel<T> {
+  public setPerPage(perPage: string | number): RequestListModel<T> {
     this.globalParameter.perPage = perPage;
     return this;
   }
   
-  public setSearch(search: String): RequestListModel<T> {
+  public setSearch(search: string): RequestListModel<T> {
     this.globalParameter.search = search;
     return this;
   }
   
-  public setAfter(after: String | Date): RequestListModel<T> {
+  public setAfter(after: string | Date): RequestListModel<T> {
     this.globalParameter.after = after;
     return this;
   }
   
-  public setAuthor(author: String | Number): RequestListModel<T> {
+  public setAuthor(author: string | number): RequestListModel<T> {
     this.globalParameter.author = author;
     return this;
   }
   
-  public setAuthorExclude(authorExclude: Number[] | String[]): RequestListModel<T> {
+  public setAuthorExclude(authorExclude: number[] | string[]): RequestListModel<T> {
     this.globalParameter.authorExclude = authorExclude;
     return this;
   }
   
-  public setBefore(before: String | Date): RequestListModel<T> {
+  public setBefore(before: string | Date): RequestListModel<T> {
     this.globalParameter.before = before;
     return this;
   }
   
-  public setExclude(exclude: Number[] | String[]): RequestListModel<T> {
+  public setExclude(exclude: number[] | string[]): RequestListModel<T> {
     this.globalParameter.exclude = exclude;
     return this;
   }
   
-  public setInclude(include: Number[] | String[]): RequestListModel<T> {
+  public setInclude(include: number[] | string[]): RequestListModel<T> {
     this.globalParameter.include = include;
     return this;
   }
   
-  public setOffset(offset: String | Number): RequestListModel<T> {
+  public setOffset(offset: string | number): RequestListModel<T> {
     this.globalParameter.offset = offset;
     return this;
   }
@@ -87,42 +88,42 @@ export default class RequestListModel<T extends IBase> {
     return this;
   }
   
-  public setCategories(categories: Number[] | String[]): RequestListModel<T> {
+  public setCategories(categories: number[] | string[]): RequestListModel<T> {
     this.globalParameter.categories = categories;
     return this;
   }
   
-  public setCategoriesExclude(categoriesExclude: Number[] | String[]): RequestListModel<T> {
+  public setCategoriesExclude(categoriesExclude: number[] | string[]): RequestListModel<T> {
     this.globalParameter.categoriesExclude = categoriesExclude;
     return this;
   }
   
-  public setTags(tags: Number[] | String[]): RequestListModel<T> {
+  public setTags(tags: number[] | string[]): RequestListModel<T> {
     this.globalParameter.tags = tags;
     return this;
   }
   
-  public setTagsExclude(tagsExclude: Number[] | String[]): RequestListModel<T> {
+  public setTagsExclude(tagsExclude: number[] | string[]): RequestListModel<T> {
     this.globalParameter.tagsExclude = tagsExclude;
     return this;
   }
   
-  public setSticky(sticky: String | Number): RequestListModel<T> {
+  public setSticky(sticky: string | number): RequestListModel<T> {
     this.globalParameter.sticky = sticky;
     return this;
   }
   
-  public setHideEmpty(hideEmpty: Boolean): RequestListModel<T> {
+  public setHideEmpty(hideEmpty: boolean): RequestListModel<T> {
     this.globalParameter.hideEmpty = hideEmpty;
     return this;
   }
   
-  public setPost(post: Number | String): RequestListModel<T> {
+  public setPost(post: number | string): RequestListModel<T> {
     this.globalParameter.post = post;
     return this;
   }
   
-  public setFields(fields: String | string[] | number | number[]): RequestListModel<T> {
+  public setFields(fields: string | string[] | number | number[]): RequestListModel<T> {
     this.globalParameter.fields = fields;
     return this;
   }
@@ -147,14 +148,28 @@ export default class RequestListModel<T extends IBase> {
     return this;
   }
 
+  public setEmbed(embed: boolean): RequestListModel<T> {
+    if (embed) {
+      this.globalParameter.fields = '_embed';
+    }
+    return this;
+  }
+
   public setHeaders(headers: HeadersInit): RequestListModel<T> {
-    this.headers = headers;
+    this.headers = { ...this.headers, ...headers };
+    return this;
+  }
+
+  public addHeader(key: string, value: string): RequestListModel<T> {
+    this.headers = { ...this.headers, [key]: value };
     return this;
   }
   
 
   public async request(): Promise<T | T[]> {
-    const response = await fetch(`${this.baseUrl}${this.suffix}?${this.globalParameter.toQueryStringFields()}`);
+    const response = await fetch(`${this.baseUrl}${this.suffix}?${this.globalParameter.toQueryStringFields()}`, {
+      headers: this.headers
+    });
     const data: any = await response.json();
     if (data.code) {
       throw new WPError(data as ApiError);
